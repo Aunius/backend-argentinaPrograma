@@ -45,27 +45,27 @@ public class Inicializar implements CommandLineRunner {
         }
 
         if(!servicio.existsBySlug("saludo")){
-            Informacion info = new Informacion("saludo", "__");
+            Informacion info = new Informacion("saludo", "Bienvenido a mi portfolio");
             servicio.save(info);
         }
 
         if(!servicio.existsBySlug("persona")){
-            Informacion info_persona = new Informacion("persona", "__");
+            Informacion info_persona = new Informacion("persona", "Nahuel");
             servicio.save(info_persona);
         }
 
         if(!servicio.existsBySlug("url_persona")){
-            Informacion info_url_persona = new Informacion("url_persona", "__");
+            Informacion info_url_persona = new Informacion("url_persona", "/assets/img/img1.png");
             servicio.save(info_url_persona);
         }
 
         if(!servicio.existsBySlug("sobremi")){
-            Informacion info2 = new Informacion("sobremi", "__");
+            Informacion info2 = new Informacion("sobremi", "Mi información");
             servicio.save(info2);
         }
 
         if(!servicio.existsBySlug("url_imagen_sobremi")){
-            Informacion info3 = new Informacion("url_imagen_sobremi", "__");
+            Informacion info3 = new Informacion("url_imagen_sobremi", "/assets/img/img1.png");
             servicio.save(info3);
         }
 

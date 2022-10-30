@@ -6,7 +6,11 @@ package com.portfolio.portfolioargprog.Controller;
 
 import com.portfolio.portfolioargprog.service.InformacionService;
 import com.portfolio.portfolioargprog.entity.Informacion;
+import com.portfolio.portfolioargprog.service.ItemService;
+import com.portfolio.portfolioargprog.entity.Item;
+import com.portfolio.portfolioargprog.enums.TipoItem;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +25,9 @@ public class HomeController {
 
     @Autowired
     InformacionService informacionService;
+
+    @Autowired
+    ItemService ItemService;
     
     @GetMapping("/cabecera")
     public Map<String, String> cabecera(){
@@ -46,16 +53,23 @@ public class HomeController {
         return map;
     }
 
-    /* @GetMapping("/educacion")
-    public String educacion(Principal principal){
-        return principal.getName();
+    @GetMapping("/educacion")
+    public Map<String, List> educacion(){
+        List<Item> items = ItemService.findByTipo(TipoItem.educacion);
+        HashMap<String, List> map = new HashMap<>();
+        map.put("items", items);
+        return map;
     }
 
     @GetMapping("/experiencia")
-    public String experiencia(Principal principal){
-        return principal.getName();
+    public Map<String, List> experiencia(){
+        List<Item> items = ItemService.findByTipo(TipoItem.experiencia);
+        HashMap<String, List> map = new HashMap<>();
+        map.put("items", items);
+        return map;
     }
 
+    /*
     @GetMapping("/tecnologias")
     public String tecnologias(Principal principal){
         return principal.getName();

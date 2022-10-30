@@ -49,6 +49,16 @@ public class Inicializar implements CommandLineRunner {
             servicio.save(info);
         }
 
+        if(!servicio.existsBySlug("persona")){
+            Informacion info_persona = new Informacion("persona", "__");
+            servicio.save(info_persona);
+        }
+
+        if(!servicio.existsBySlug("url_persona")){
+            Informacion info_url_persona = new Informacion("url_persona", "__");
+            servicio.save(info_url_persona);
+        }
+
         if(!servicio.existsBySlug("sobremi")){
             Informacion info2 = new Informacion("sobremi", "__");
             servicio.save(info2);

@@ -35,12 +35,18 @@ public class HomeController {
         return map;
     }
 
-    /* @GetMapping("/acerca_de")
-    public String acerca_de(Principal principal){
-        return principal.getName();
+    @GetMapping("/acerca_de")
+    public Map<String, String> acerca_de(){
+        Informacion sobremi = informacionService.getBySlug("sobremi").get();
+        Informacion url_imagen_sobremi = informacionService.getBySlug("url_imagen_sobremi").get();
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("sobremi", sobremi.getValor());
+        map.put("url_imagen_sobremi", url_imagen_sobremi.getValor());
+        return map;
     }
 
-    @GetMapping("/educacion")
+    /* @GetMapping("/educacion")
     public String educacion(Principal principal){
         return principal.getName();
     }

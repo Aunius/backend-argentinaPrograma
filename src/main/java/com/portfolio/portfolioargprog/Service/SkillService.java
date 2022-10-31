@@ -19,6 +19,14 @@ public class SkillService {
     public void save(Skill objeto){
         repository.save(objeto);
     }
+    
+    public void delete(Skill objeto){
+        repository.delete(objeto);
+    }
+    
+    public Skill findbyId(Integer id){
+        return repository.findById(id).get();
+    }
 
     public List<Skill> findAll(){
         return repository.findAll();

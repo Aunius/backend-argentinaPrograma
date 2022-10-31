@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class ContactoController {
 
     private final RestTemplate restTemplate;
@@ -29,6 +29,6 @@ public class ContactoController {
         String url = "https://api.telegram.org/bot5496215105:AAGDql-VItsDcrT2vsbocMA739M9cBEJXt8/sendMessage?chat_id=-1001615706397&text="+mensaje;
 
         this.restTemplate.getForObject(url, String.class);
-        return "Mensaje enviado correctamente";
+        return "{\"mensaje\": \"Mensaje enviado correctamente\"}";
     }
 }

@@ -23,4 +23,12 @@ public class ProyectoService {
     public List<Proyecto> findAll(){
         return repository.findAll();
     }
+    
+    public void delete(Proyecto objeto){
+        repository.delete(objeto);
+    }
+    
+    public Proyecto findbyId(Integer id){
+        return repository.findById(id).get();
+    }
 }

@@ -20,9 +20,17 @@ public class ItemService {
     public void save(Item objeto){
         repository.save(objeto);
     }
+    
+    public void delete(Item objeto){
+        repository.delete(objeto);
+    }
 
     public List<Item> findAll(){
         return repository.findAll();
+    }
+    
+    public Item findbyId(Integer id){
+        return repository.findById(id).get();
     }
 
     public List<Item> findByTipo(TipoItem tipo){

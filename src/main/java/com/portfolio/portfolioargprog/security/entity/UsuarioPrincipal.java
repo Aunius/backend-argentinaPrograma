@@ -35,6 +35,30 @@ public class UsuarioPrincipal implements UserDetails {
         return new UsuarioPrincipal(usuario.getUsuario(), usuario.getNombre(), usuario.getApellido(), usuario.getPassword(), usuario.getUrl_imagen(), authorities);
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getUrl_imagen() {
+        return url_imagen;
+    }
+
+    public void setUrl_imagen(String url_imagen) {
+        this.url_imagen = url_imagen;
+    }
+
     @Override
     public String getPassword() {
         return password;

@@ -6,6 +6,7 @@ import com.portfolio.portfolioargprog.security.dto.LoginUsuario;
 import com.portfolio.portfolioargprog.security.dto.NuevoUsuario;
 import com.portfolio.portfolioargprog.security.entity.Rol;
 import com.portfolio.portfolioargprog.security.entity.Usuario;
+import com.portfolio.portfolioargprog.security.entity.UsuarioPrincipal;
 import com.portfolio.portfolioargprog.security.enums.RolNombre;
 import com.portfolio.portfolioargprog.security.jwt.JwtProvider;
 import com.portfolio.portfolioargprog.security.service.RolService;
@@ -55,9 +56,9 @@ public class AuthController {
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){        
         if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Datos incorrecots o email inválido"), HttpStatus.BAD_REQUEST);
         if(usuarioService.existsByUsuario(nuevoUsuario.getUsuario()))
-            return new ResponseEntity(new Mensaje("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Usuario ya existente"), HttpStatus.BAD_REQUEST);
         Usuario usuario =
                 new Usuario(nuevoUsuario.getUsuario(), nuevoUsuario.getNombre(), nuevoUsuario.getApellido(), passwordEncoder.encode(nuevoUsuario.getPassword()), nuevoUsuario.getUrl_imagen() );
         Set<Rol> roles = new HashSet<>();
@@ -66,20 +67,20 @@ public class AuthController {
         usuarioService.save(usuario);
 
         
-        return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
+        return new ResponseEntity(new Mensaje("Usuario guardado"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Datos incorrectos"), HttpStatus.BAD_REQUEST);
 
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getUsuario(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        UsuarioPrincipal userDetails = (UsuarioPrincipal)authentication.getPrincipal();
+        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getNombre(), userDetails.getApellido(), userDetails.getAuthorities());
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }
 }
